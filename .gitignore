@@ -10,10 +10,12 @@
 .pydevproject
 .sublime-project
 .vscode
+.venv
 
 # Python dev tooling
 .mr.developer.cfg
 .python-version
+uv.lock
 
 # Cache, temp. files
 __pycache__/

@@ -1,3 +1,21 @@
+# 准备环境
+
+通过venv管理python虚拟环境，进入到项目根目录，创建venv环境
+```commandline
+cd moviepy
+python -m venv .venv
+source myenv/bin/activate
+```
+然后安装必要的依赖
+```commandline
+pip install opencv-python Pillow click librosa
+```
+
+以下是moviepy源码需要的依赖
+```commandline
+pip install proglog imageio
+```
+
 # MoviePy
 
 
