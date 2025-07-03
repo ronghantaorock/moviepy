@@ -1,11 +1,45 @@
 # 准备环境
+- 项目使用poetry进行管理，在开始之前，先安装[poetry](https://blog.kyomind.tw/python-poetry/)
+- 项目使用python版本为>3.13，事实上3.9以上都可以，如果需要更改版本，需要修改pyproject.toml中的依赖
+- 确保你安装了指定的python版本
 
-通过venv管理python虚拟环境，进入到项目根目录，创建venv环境
+## 初始化poetry环境
+当通过git clone下来完整的项目后，首先需要初始化虚拟环境，执行如下命令：
 ```commandline
-cd moviepy
-python -m venv .venv
-source myenv/bin/activate
+poetry config virtualenvs.in-project true
+poetry env remove python
 ```
+poetry config 执行后会将.venv安装到当前工程目录下，如果不执行，会安装到Poetry Cache里
+
+## 启动环境
+```commandline
+source .venv/bin/activate
+```
+如果需要退出，直接执行 deactivate 即可
+
+## 使用poetry 安装套件
+```commandline
+poetry add xxx
+```
+
+因为我们会使用 opencv-python 依赖，可以尝试安装此依赖：
+```commandline
+poetry add opencv-python
+```
+安装之后，查看 pyproject.toml 中，增加了依赖，并将此包安装到了虚拟环境中，后续可以通过此命令安装所需的包
+> opencv-python (>=4.11.0.86,<5.0.0.0)
+
+如果要移除某一个套件，可以使用如下命令：
+```commandline
+poetry remove xxx
+```
+
+## 安装所有依赖
+我们已经把项目所需的所有依赖都放到了 pyproject.toml 中，在正式执行之前，需要先安装所有依赖，执行如下命令：
+```commandline
+poetry install
+```
+
 然后安装必要的依赖
 ```commandline
 pip install opencv-python Pillow click librosa
@@ -17,12 +51,6 @@ pip install proglog imageio
 ```
 
 # MoviePy
-
-
-[![MoviePy page on the Python Package Index](https://badge.fury.io/py/moviepy.svg)](https://pypi.org/project/moviepy/) [![Discuss MoviePy on Gitter](https://img.shields.io/gitter/room/movie-py/gitter?color=46BC99&logo=gitter)](Gitter_) [![Build status on gh-actions](https://img.shields.io/github/actions/workflow/status/Zulko/moviepy/test_suite.yml?logo=github)](https://github.com/Zulko/moviepy/actions/workflows/test_suite.yml) [![Code coverage from coveralls.io](https://img.shields.io/coveralls/github/Zulko/moviepy/master?logo=coveralls)](https://coveralls.io/github/Zulko/moviepy?branch=master)
-
-> [!NOTE]
-> MoviePy recently upgraded to v2.0, introducing major breaking changes. You can consult the last v1 docs [here](https://zulko.github.io/moviepy/v1.0.3/) but beware that v1 is no longer maintained. For more info on how to update your code from v1 to v2, see [this guide](https://zulko.github.io/moviepy/getting_started/updating_to_v2.html).
 
 MoviePy (online documentation [here](https://zulko.github.io/moviepy/)) is a Python library for video editing: cuts, concatenations, title insertions, video compositing (a.k.a. non-linear editing), video processing, and creation of custom effects.
 
@@ -65,41 +93,4 @@ Under the hood, MoviePy imports media (video frames, images, sounds) and convert
 
 The library also provides ways to mix clips together (concatenations, playing clips side by side or on top of each other with transparency, etc.). The final clip is then encoded back into mp4/webm/gif/etc.
 
-This makes MoviePy very flexible and approachable, albeit slower than using ffmpeg directly due to heavier data import/export operations.  
-
-
-# Installation
-
-Intall moviepy with `pip install moviepy`. For additional installation options, such as a custom FFMPEG or for previewing, see [this section](https://zulko.github.io/moviepy/getting_started/install.html). For development, clone that repo locally and install with `pip install -e .`
-
-# Documentation
-
-The online documentation ([here](https://zulko.github.io/moviepy/)) is automatically built at every push to the master branch. To build the documentation locally, install the extra dependencies via `pip install moviepy[doc]`, then go to the `docs` folder and run `make html`.
-
-# Contribute
-
-MoviePy is open-source software originally written by
-[Zulko](https://github.com/Zulko) and released under the MIT licence.
-The project is hosted on [GitHub](https://github.com/Zulko/moviepy),
-where everyone is welcome to contribute and open issues or give feedback Please read our [Contributing
-Guidelines](https://github.com/Zulko/moviepy/blob/master/CONTRIBUTING.md).
-To ask for help or simply discuss usage and examples, use [our Reddit channel](https://www.reddit.com/r/moviepy/).
-
-# Maintainers
-
-## Active maintainers
--   [Zulko](https://github.com/Zulko) (owner)
--   [@osaajani](https://github.com/OsaAjani) led the development of v2 ([MR](https://github.com/Zulko/moviepy/pull/2024))
--   [@tburrows13](https://github.com/tburrows13)
--   [@keikoro](https://github.com/keikoro)
-
-## Past maintainers and thanks
--   [@mgaitan](https://github.com/mgaitan)
--   [@earney](https://github.com/earney)
--   [@mbeacom](https://github.com/mbeacom)
--   [@overdrivr](https://github.com/overdrivr)
--   [@ryanfox](https://github.com/ryanfox)
--   [@mondeja](https://github.com/mondeja)
-
-**Maintainers wanted!** this library has only been kept afloat by the involvement of its maintainers, and there are times where none of us have enough bandwidth. We'd love to hear about developers interested in giving a hand and solving some of the issues (especially the ones that affect you) or reviewing pull requests. Open
-an issue or contact us directly if you are interested. Thanks!
+This makes MoviePy very flexible and approachable, albeit slower than using ffmpeg directly due to heavier data import/export operations.

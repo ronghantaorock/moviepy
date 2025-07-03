@@ -11,6 +11,7 @@
 .sublime-project
 .vscode
 .venv
+poetry.lock
 
 # Python dev tooling
 .mr.developer.cfg
